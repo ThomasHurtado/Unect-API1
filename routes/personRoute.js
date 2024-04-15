@@ -82,7 +82,6 @@ router.patch('/:id', async(req, res) =>{
         age,
         ra,
         cpf,
-        createdAt,
         updatedAt: moment().toDate()
     }
 
