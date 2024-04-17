@@ -33,22 +33,7 @@ router.post('/', async(req, res) => {
     }
 })
 
-//Leitura de dados
-
-router.get('/', async(req, res) =>{
-
-    try {
-
-        const people = await Person.find()
-
-        res.status(200).json(people)
-        
-    } catch (error) {
-       res.status(500).json({ error: error }) 
-    }
-
-})
-
+//Ver dados pelo iD
 router.get('/:id', async(req, res) =>{
 
     const id = req.params.id
@@ -67,6 +52,51 @@ router.get('/:id', async(req, res) =>{
     } catch (error) {
       res.status(500).json({ error: error })  
     }
+})
+
+//Ver todos os dados
+
+router.get('/', async(req, res) => {
+
+    let Name = req.query.Name
+    let RA = req.query.RA
+
+    if(Name){
+        try {
+
+            const person = await Person.find({name: Name})
+
+            res.status(200).json(person)
+
+        } catch (error) {
+
+            res.status(500).json({error: error})
+        }
+
+    }else if(RA){
+        try {
+
+            const person = await Person.find({ra: RA})
+
+            res.status(200).json(person)
+
+        } catch (error) {
+            
+            res.status(500).json({error: error})
+        }
+    }else{
+        try {
+
+            const people = await Person.find()
+    
+            res.status(200).json(people)
+            
+        } catch (error) {
+           res.status(500).json({ error: error }) 
+        }
+    }
+
+
 })
 
 //Atualizar dados
