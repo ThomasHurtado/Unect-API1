@@ -15,9 +15,9 @@ app.use(express.json())
 
 //rotas da api
 
-const personRoutes = require('./routes/personRoute')   
+const alunoRoutes = require('./routes/alunoRoute')   
 
-app.use('/person', personRoutes)
+app.use('/aluno', alunoRoutes)
 
 
 // endpoint

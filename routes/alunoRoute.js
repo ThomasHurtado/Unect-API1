@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const Person = require('../models/Person')
+const Aluno = require('../models/Aluno')
 
 const moment = require('moment')
 
@@ -12,7 +12,7 @@ router.post('/', async(req, res) => {
 
     const {name, age, ra, cpf} = req.body //destruturação 
 
-    const person = {
+    const aluno = {
         name,
         age,
         ra,
@@ -24,7 +24,7 @@ router.post('/', async(req, res) => {
 
     try {
 
-        await Person.create(person)
+        await Aluno.create(aluno)
 
         res.status(201).json({Message: 'Sucesso'})
 
@@ -40,14 +40,14 @@ router.get('/:id', async(req, res) =>{
 
     try {
       
-        const person = await Person.findOne({_id: id})
+        const aluno = await Aluno.findOne({_id: id})
 
-        if(!person){
+        if(!aluno){
             res.status(422).json({ message: 'O usuario não foi encontrado!'})
             return
         }
 
-        res.status(200).json(person)
+        res.status(200).json(aluno)
 
     } catch (error) {
       res.status(500).json({ error: error })  
@@ -64,9 +64,9 @@ router.get('/', async(req, res) => {
     if(Name){
         try {
 
-            const person = await Person.find({name: Name})
+            const aluno = await Aluno.find({name: Name})
 
-            res.status(200).json(person)
+            res.status(200).json(aluno)
 
         } catch (error) {
 
@@ -76,9 +76,9 @@ router.get('/', async(req, res) => {
     }else if(RA){
         try {
 
-            const person = await Person.find({ra: RA})
+            const aluno = await Aluno.find({ra: RA})
 
-            res.status(200).json(person)
+            res.status(200).json(aluno)
 
         } catch (error) {
             
@@ -87,9 +87,9 @@ router.get('/', async(req, res) => {
     }else{
         try {
 
-            const people = await Person.find()
+            const aluno = await Aluno.find()
     
-            res.status(200).json(people)
+            res.status(200).json(aluno)
             
         } catch (error) {
            res.status(500).json({ error: error }) 
@@ -107,7 +107,7 @@ router.patch('/:id', async(req, res) =>{
 
     const {name, age, ra, cpf} = req.body
 
-    const person = {
+    const aluno = {
         name,
         age,
         ra,
@@ -117,14 +117,14 @@ router.patch('/:id', async(req, res) =>{
 
     try {
 
-        const updatedPerson = await Person.updateOne({_id: id}, person)
+        const updatedAluno = await Aluno.updateOne({_id: id}, aluno)
 
-        if(updatedPerson.matchedCount  === 0){
+        if(updatedAluno.matchedCount  === 0){
             res.status(422).json({ message: 'O usuario não foi encontrado!'})
             return
         }
 
-        res.status(200).json(person)
+        res.status(200).json(aluno)
         
     } catch (error) {
         res.status(500).json({ error: error })
@@ -137,16 +137,16 @@ router.delete('/:id', async(req, res) => {
 
     const id = req.params.id
 
-    const person = await Person.findOne({_id: id})
+    const aluno = await Aluno.findOne({_id: id})
 
-    if(!person){
+    if(!aluno){
         res.status(422).json({ message: 'O usuario não foi encontrado!'})
         return
     }
     
     try {
        
-        await Person.deleteOne({_id: id})
+        await Aluno.deleteOne({_id: id})
 
         res.status(200).json({message: 'Usuario deletado com sucesso!'})
 
